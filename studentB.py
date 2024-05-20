@@ -53,8 +53,8 @@ def ai_move(board):
                 return board
 
     #4. Check / axis
-    for y in range(3, 5):
-        for x in range(3,5):
+    for y in range(2, 5):
+        for x in range(2,5):
             if board[get_index(x, y)] == PLAYER_MARK and \
             board[get_index(x-1, y-1)] == PLAYER_MARK and board[get_index(x-2, y-2)]==0:
                 board[get_index(x-2, y-2)] = AI_MARK
@@ -86,6 +86,8 @@ def get_user_move(board):
         except TimeoutOccurred:
             print("Too slow!")
             return board
+        if x_move == '':
+            x_move = -1;
         if(int(x_move) >=0 and int(x_move) <5):
             break
         else:
@@ -97,6 +99,8 @@ def get_user_move(board):
         except TimeoutOccurred:
             print("Too slow!")
             return board
+        if y_move == '':
+            y_move = -1;
         if(int(y_move) >=0 and int(y_move) <5):
             break
         else:
@@ -112,6 +116,8 @@ def get_user_move(board):
             except TimeoutOccurred:
                 print("Too slow!")
                 return board
+            if x_move == '':
+                x_move = -1;
             if(int(x_move) >=0 and int(x_move) <5):
                 break
             else:
@@ -123,6 +129,8 @@ def get_user_move(board):
             except TimeoutOccurred:
                 print("Too slow!")
                 return board
+            if y_move == '':
+                y_move = -1;
             if(int(y_move) >=0 and int(y_move) <5):
                 break
             else:

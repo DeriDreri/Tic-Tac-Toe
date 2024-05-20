@@ -50,8 +50,8 @@ def is_game_over(board):
             board[get_index(x+2, y+2)] == init_value:
                 return True
     #4. Check / axis
-    for y in range(3, 5):
-        for x in range(3,5):
+    for y in range(2, 5):
+        for x in range(2,5):
             init_value = board[get_index(x,y)]
             if init_value == 0:
                 continue
