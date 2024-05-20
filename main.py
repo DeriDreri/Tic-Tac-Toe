@@ -5,7 +5,7 @@ board = new_board()
 player_move = is_player_starting()
 while not is_game_over(board):
     print_board(board)
-    board = players_move and get_user_move(board) or ai_move(board)
+    board = player_move and get_user_move(board) or ai_move(board)
     player_move = not player_move 
 
 announce_outcome(board, player_move)

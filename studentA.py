@@ -19,12 +19,15 @@ def print_board(board):
             to_print = "[O]" if value == 2 else to_print
             print(to_print, end='')
         print("")
+    print("")
 
 def is_game_over(board): 
     #1. Check horizontal 
     for y in range(0, 5):
         for x in range(0,3):
             init_value = board[get_index(x,y)]
+            if init_value == 0:
+                continue
             if board[get_index(x+1, y)] == init_value and \
             board[get_index(x+2, y)] == init_value:
                 return True
@@ -32,6 +35,8 @@ def is_game_over(board):
     for x in range(0, 5):
         for y in range(0, 3):
             init_value = board[get_index(x,y)]
+            if init_value == 0:
+                continue
             if board[get_index(x, y+1)] == init_value and \
             board[get_index(x, y+2)] == init_value:
                 return True
@@ -39,6 +44,8 @@ def is_game_over(board):
     for y in range(0, 3):
         for x in range(0,3):
             init_value = board[get_index(x,y)]
+            if init_value == 0:
+                continue
             if board[get_index(x+1, y+1)] == init_value and \
             board[get_index(x+2, y+2)] == init_value:
                 return True
@@ -46,12 +53,15 @@ def is_game_over(board):
     for y in range(3, 5):
         for x in range(3,5):
             init_value = board[get_index(x,y)]
+            if init_value == 0:
+                continue
             if board[get_index(x-1, y-1)] == init_value and \
             board[get_index(x-2, y-2)] == init_value:
                 return True
-    return True
+    return False
 
 def announce_outcome(board, player_move):
+    print_board(board)
     if player_move:
         print("AI is victorious")
     else:
