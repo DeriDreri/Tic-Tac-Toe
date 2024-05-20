@@ -1,8 +1,73 @@
 import random
+from studentA import get_index
+from inputimeout import inputimeout, TimeoutOccurred
 PLAYER_MARK = 1
 AI_MARK = 2
 
 def ai_move(board):
+    #1. Check horizontal 
+    for y in range(0, 5):
+        for x in range(0,3):
+            if board[get_index(x, y)] == PLAYER_MARK and \
+            board[get_index(x+1, y)] == PLAYER_MARK and board[get_index(x+2, y)]==0:
+                board[get_index(x+2, y)] = AI_MARK
+                return board
+            elif board[get_index(x, y)] == PLAYER_MARK and \
+            board[get_index(x+2, y)] == PLAYER_MARK and board[get_index(x+1, y)]==0:
+                board[get_index(x+1, y)] = AI_MARK
+                return board
+            elif board[get_index(x+1, y)] == PLAYER_MARK and \
+            board[get_index(x+2, y)] == PLAYER_MARK and board[get_index(x, y)]==0:
+                board[get_index(x, y)] = AI_MARK
+                return board
+    #2. Check vertical
+    for x in range(0, 5):
+        for y in range(0, 3):
+            if board[get_index(x, y)] == PLAYER_MARK and \
+            board[get_index(x, y+1)] == PLAYER_MARK and board[get_index(x, y+2)]==0:
+                board[get_index(x, y+2)] = AI_MARK
+                return board
+            elif board[get_index(x, y)] == PLAYER_MARK and \
+            board[get_index(x, y+2)] == PLAYER_MARK and board[get_index(x, y+1)]==0:
+                board[get_index(x, y+1)] = AI_MARK
+                return board
+            elif board[get_index(x, y+1)] == PLAYER_MARK and \
+            board[get_index(x, y+2)] == PLAYER_MARK and board[get_index(x, y)]==0:
+                board[get_index(x, y)] = AI_MARK
+                return board
+
+    #3. Check \ axis
+    for y in range(0, 3):
+        for x in range(0,3):
+            if board[get_index(x, y)] == PLAYER_MARK and \
+            board[get_index(x+1, y+1)] == PLAYER_MARK and board[get_index(x+2, y+2)]==0:
+                board[get_index(x+2, y+2)] = AI_MARK
+                return board
+            elif board[get_index(x, y)] == PLAYER_MARK and \
+            board[get_index(x+2, y+2)] == PLAYER_MARK and board[get_index(x+1, y+1)]==0:
+                board[get_index(x+1, y+1)] = AI_MARK
+                return board
+            elif board[get_index(x+1, y+1)] == PLAYER_MARK and \
+            board[get_index(x+2, y+2)] == PLAYER_MARK and board[get_index(x+2, y+2)]==0:
+                board[get_index(x, y)] = AI_MARK
+                return board
+
+    #4. Check / axis
+    for y in range(3, 5):
+        for x in range(3,5):
+            if board[get_index(x, y)] == PLAYER_MARK and \
+            board[get_index(x-1, y-1)] == PLAYER_MARK and board[get_index(x-2, y-2)]==0:
+                board[get_index(x-2, y-2)] = AI_MARK
+                return board
+            elif board[get_index(x, y)] == PLAYER_MARK and \
+            board[get_index(x-2, y-2)] == PLAYER_MARK and board[get_index(x-1, y-1)]==0:
+                board[get_index(x-1, y-1)] = AI_MARK
+                return board
+            elif board[get_index(x-1, y-1)] == PLAYER_MARK and \
+            board[get_index(x-2, y-2)] == PLAYER_MARK and board[get_index(x, y)]==0:
+                board[get_index(x, y)] = AI_MARK
+                return board
+    
     x_pc_move = random.randint(0,4)
     y_pc_move = random.randint(0,4)
 
@@ -16,14 +81,22 @@ def ai_move(board):
 def get_user_move(board):
     print("Your turn!")
     while True:
-        x_move = input("X: ")
+        try:
+            x_move = inputimeout(prompt='X: ', timeout=5)
+        except TimeoutOccurred:
+            print("Too slow!")
+            return board
         if(int(x_move) >=0 and int(x_move) <5):
             break
         else:
             print("x should be between 0 and 5")
     
     while True:
-        y_move = input("Y: ")
+        try:
+            y_move = inputimeout(prompt='Y: ', timeout=5)
+        except TimeoutOccurred:
+            print("Too slow!")
+            return board
         if(int(y_move) >=0 and int(y_move) <5):
             break
         else:
@@ -34,14 +107,22 @@ def get_user_move(board):
     while board[int(y_move)*5+int(x_move)] != 0:
         print("Try again!")
         while True:
-            x_move = input("X: ")
+            try:
+                x_move = inputimeout(prompt='X: ', timeout=5)
+            except TimeoutOccurred:
+                print("Too slow!")
+                return board
             if(int(x_move) >=0 and int(x_move) <5):
                 break
             else:
                 print("x should be between 0 and 5")
     
         while True:
-            y_move = input("Y: ")
+            try:
+                y_move = inputimeout(prompt='Y: ', timeout=5)
+            except TimeoutOccurred:
+                print("Too slow!")
+                return board
             if(int(y_move) >=0 and int(y_move) <5):
                 break
             else:
